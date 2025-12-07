@@ -37,7 +37,7 @@ switch ($action) {
         break;
 
     case 'update':
-        $id = (int) $_POST['id_teknisi'];
+        $id = (int)$_POST['id_teknisi'];
         $nama_teknisi = trim($_POST['nama_teknisi']);
         $keahlian = trim($_POST['keahlian']);
         $no_hp = trim($_POST['no_hp']);
@@ -55,7 +55,7 @@ switch ($action) {
         break;
 
     case 'delete':
-        $id = (int) $_POST['id'];
+        $id = (int)$_POST['id'];
         if ($teknisiModel->delete($id)) {
             echo json_encode(['success' => true]);
         } else {

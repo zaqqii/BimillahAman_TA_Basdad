@@ -2,9 +2,9 @@
 // config/database.php
 $host = 'localhost';
 $port = '5433';
-$dbname = 'your_database_name'; // Ganti dengan nama database Anda
-$username = 'your_db_user';    // Ganti dengan username Anda
-$password = 'your_db_password'; // Ganti dengan password Anda
+$dbname = 'aplikasi_service_elektronik'; // Ganti dengan nama database Anda
+$username = 'postgres';    // Ganti dengan username Anda
+$password = 'sekiro25'; // Ganti dengan password Anda
 
 try {
     $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $username, $password, [
