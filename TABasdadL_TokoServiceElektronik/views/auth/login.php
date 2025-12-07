@@ -206,22 +206,18 @@ $loginAs = $_GET['login_as'] ?? 'pelanggan'; // Ganti default ke pelanggan, biar
             <select name="login_as" id="login_as" required onchange="updateUsernameLabel()">
                 <option value="pelanggan" <?php if($loginAs === 'pelanggan') echo 'selected'; ?>>Pelanggan (Email)</option>
                 <option value="teknisi" <?php if($loginAs === 'teknisi') echo 'selected'; ?>>Teknisi (Email)</option>
-                <option value="admin" <?php if($loginAs === 'admin') echo 'selected'; ?>>Admin (Username)</option>
+                <option value="admin" <?php if($loginAs === 'admin') echo 'selected'; ?>>Admin (Email)</option>
             </select>
 
             <label for="username" id="username_label">
-                <?php if ($loginAs === 'pelanggan' || $loginAs === 'teknisi'): ?>
-                    Email:
-                <?php else: ?>
-                    Username:
-                <?php endif; ?>
+                Email:
             </label>
             <input
-                type="<?php if ($loginAs === 'pelanggan' || $loginAs === 'teknisi'): ?>email<?php else: ?>text<?php endif; ?>"
+                type="email"
                 id="username"
                 name="username"
                 required
-                placeholder="<?php if ($loginAs === 'pelanggan' || $loginAs === 'teknisi'): ?>Contoh: user@email.com<?php else: ?>Contoh: admin123<?php endif; ?>"
+                placeholder="Contoh: user@email.com"
             >
 
             <label for="password">Password:</label>
@@ -245,17 +241,15 @@ $loginAs = $_GET['login_as'] ?? 'pelanggan'; // Ganti default ke pelanggan, biar
         // Fungsi untuk update label & input type saat pilih role
         function updateUsernameLabel() {
             const select = document.getElementById('login_as');
-            const input = document.getElementById('username');
-            const label = document.getElementById('username_label');
+            const input = document.getElementById('username'); // ✅ FIX: ID input sesuai HTML
+            const label = document.getElementById('username_label'); // ✅ FIX: ID label sesuai HTML
 
-            if (select.value === 'pelanggan' || select.value === 'teknisi') {
-                input.type = 'email';
+            // Karena sekarang semua role login pake email, gak usah ubah type
+            // Cukup update placeholder dan label text biar jelas
+            if (select.value === 'pelanggan' || select.value === 'teknisi' || select.value === 'admin') {
+                input.type = 'email'; // Tetap email
                 input.placeholder = 'Contoh: user@email.com';
                 label.textContent = 'Email:';
-            } else {
-                input.type = 'text';
-                input.placeholder = 'Contoh: admin123';
-                label.textContent = 'Username:';
             }
         }
     </script>
