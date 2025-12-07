@@ -28,7 +28,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'login') {
     }
 
     if ($success) {
-        header("Location: ../public/index.php");
+        // 🔁 REDIRECT BERDASARKAN ROLE
+        $role = $_SESSION['role'];
+        if ($role === 'admin') {
+            $redirect = '../views/dashboard.php'; // Atau '../views/admin/dashboard.php' kalo bikin halaman khusus
+        } elseif ($role === 'pelanggan') {
+            $redirect = '../views/services/list.php'; // Lihat history service
+        } elseif ($role === 'teknisi') {
+            $redirect = '../views/services/list.php'; // Lihat service assigned to them
+        } else {
+            $redirect = '../public/index.php'; // Fallback
+        }
+
+        header("Location: $redirect");
         exit;
     } else {
         header("Location: ../views/auth/login.php?error=1&login_as=" . urlencode($login_as));
