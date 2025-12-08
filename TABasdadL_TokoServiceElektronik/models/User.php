@@ -14,8 +14,8 @@ class User {
     // Authenticate Admin (Login via email - Sekarang pake email!)
     public function authenticateAdmin($email, $password) {
         // 🔁 Ganti query: cari berdasarkan email, bukan username
-        // 🔥 Perhatikan: kolom "password" diapit kutip karena di DB ada kutipnya
-        $stmt = $this->pdo->prepare("SELECT id_admin as id, email as username, \"password\" as password_hash, nama_admin as name, 'admin' as role FROM admin WHERE email = ?");
+        // 🔥 Perhatikan: kolom password TANPA kutip karena di DB emang gak ada kutipnya
+        $stmt = $this->pdo->prepare("SELECT id_admin as id, email as username, password as password_hash, nama_admin as name, 'admin' as role FROM admin WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
@@ -33,8 +33,8 @@ class User {
 
     // Authenticate Pelanggan (Login via email) - Tetap sama
     public function authenticatePelanggan($email, $password) {
-        // 🔥 Perhatikan: kolom "password" diapit kutip karena di DB ada kutipnya
-        $stmt = $this->pdo->prepare("SELECT id_pelanggan as id, email as username, \"password\" as password_hash, nama as name, 'pelanggan' as role FROM pelanggan WHERE email = ?");
+        // 🔥 Perhatikan: kolom password TANPA kutip
+        $stmt = $this->pdo->prepare("SELECT id_pelanggan as id, email as username, password as password_hash, nama as name, 'pelanggan' as role FROM pelanggan WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
@@ -52,8 +52,8 @@ class User {
 
     // Authenticate Teknisi (Login via email, hanya aktif) - Tetap sama
     public function authenticateTeknisi($email, $password) {
-        // 🔥 Perhatikan: kolom "password" diapit kutip karena di DB ada kutipnya
-        $stmt = $this->pdo->prepare("SELECT id_teknisi as id, email as username, \"password\" as password_hash, nama_teknisi as name, 'teknisi' as role FROM teknisi WHERE email = ? AND status_aktif = TRUE");
+        // 🔥 Perhatikan: kolom password TANPA kutip
+        $stmt = $this->pdo->prepare("SELECT id_teknisi as id, email as username, password as password_hash, nama_teknisi as name, 'teknisi' as role FROM teknisi WHERE email = ? AND status_aktif = TRUE");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
